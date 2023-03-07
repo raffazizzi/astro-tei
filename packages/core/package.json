@@ -1,6 +1,6 @@
 {
   "name": "astro-tei",
-  "version": "1.0.0-beta.1",
+  "version": "0.1.0",
   "description": "Astro component for TEI as Custom Elements",
   "type": "module",
   "main": "index.js",
