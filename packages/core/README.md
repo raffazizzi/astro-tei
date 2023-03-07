@@ -2,9 +2,9 @@
 
 An Astro component for publishing TEI as Custom Elements powered by [CETEIcean](https://github.com/TEIC/CETEIcean).
 
-Want to use React with your TEI elements? Check out the Astro-TEI React component.
-
 Astro TEI will pre-process a TEI string on the server side (during SSR or SSG) and use CETEIcean on the client side to register TEI as Custom Elements and apply CETEIcean behaviors.
+
+> Want to use React with your TEI elements? Check out the [Astro-TEI React component](https://github.com/raffazizzi/astro-tei/tree/main/packages/react#readme).
 
 ## Installation
 
@@ -18,7 +18,7 @@ npm install astro-tei jsdom --save-dev
 
 ```astro
 ---
-import Teifrom 'astro-tei';
+import Tei from 'astro-tei';
 
 // Load TEI data with a dynamic import.
 // You can also use Node's library fs to get the file's content.
