@@ -172,8 +172,9 @@ export const Tei: TBehavior = (props: TEIProps) => {
     if (note.getAttribute("place") === "end") {
       // Add an index to the note
       note.setAttribute("data-idx", (i + 1).toString());
+      const id = `_note_${i + 1}`
       acc.push(
-        <li id={`_note_${i + 1}`}>
+        <li id={id} key={id}>
           {<TEINodes key={`en${i}`} teiNodes={note.childNodes} {...props} />}
         </li>
       );

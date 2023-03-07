@@ -49,7 +49,5 @@ export default function BasicRouter({ doc, elements, routes }: Props) {
     return <TEIRoute el={el} component={_routes[el]} key={`tr-${i}`} />;
   });
 
-  console.log('h', doc)
-
   return <TEIRender data={doc.documentElement}>{teiRoutes}</TEIRender>;
 }
