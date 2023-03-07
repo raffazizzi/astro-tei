@@ -7,10 +7,8 @@
     "module": "ESNext",
     "moduleResolution": "nodenext",
     "esModuleInterop": true,
-    "baseUrl": "src",
     "lib": ["ES2021"],
     "types": ["astro/client"]
   },
-  "include": ["src/**/*", "packages/**/src/*"],
-  "exclude": ["src/__tests__/**/*", "dist", "src/components/**/*"],
+  "include": ["demo/src/*", "demo/src/**/*", "packages/**/src/*"]
 }

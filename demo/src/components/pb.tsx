@@ -6,7 +6,7 @@ interface TEIProps {
   availableRoutes?: string[]
 }
 
-export type PbBehavior = (props: TEIProps) => JSX.Element | null
+export type PbBehavior = (props: TEIProps) => JSX.Element | null;
 
 const Pb: PbBehavior = ({teiNode}: TEIProps) => {
 

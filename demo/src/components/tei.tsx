@@ -1,10 +1,16 @@
 import React from "react";
 import BasicRouter from '@astro-tei/react';
 import { DefaultBehaviors } from "@astro-tei/react";
-import type { DefaultBehaviors } from "@astro-tei/react";
+import type { IRoutes } from "@astro-tei/react";
 import Pb from './pb';
 
-export default function TEI({doc, data, elements}) {
+interface Props {
+  doc: Document
+  data: string
+  elements: string[]
+}
+
+export default function TEI({doc, data, elements}: Props) {
   const {
     Tei,
     Eg,
@@ -16,7 +22,7 @@ export default function TEI({doc, data, elements}) {
     TeiHeader
   } = DefaultBehaviors;
 
-  const routes: Routes = {
+  const routes: IRoutes = {
     "tei-tei": Tei,
     "teieg-egxml": Eg,
     "tei-graphic": Graphic,
