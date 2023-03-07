@@ -1,6 +1,6 @@
 {
   "name": "@astro-tei/react",
-  "version": "1.0.0-beta.1",
+  "version": "0.1.0",
   "description": "Astro component for TEI as Custom Elements with React support",
   "type": "module",
   "main": "index.js",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "CETEIcean": "1.8.0-beta.1",
-    "astro-tei": "workspace:1.0.0-beta.1",
+    "astro-tei": "workspace:^0.1.0",
     "jsdom": "^21.1.0",
     "react": "^18.2.0",
     "react-teirouter": "^3.0.0"

@@ -36,13 +36,13 @@ importers:
 
   demo:
     specifiers:
-      '@astro-tei/react': workspace:1.0.0-beta.1
+      '@astro-tei/react': workspace:^0.1.0
       '@astrojs/react': ^2.0.2
       '@astrojs/tailwind': ^3.0.1
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
       astro: ^2.0.16
-      astro-tei: workspace:1.0.0-beta.1
+      astro-tei: workspace:^0.1.0
       jsdom: ^21.1.0
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -79,7 +79,7 @@ importers:
       '@types/react': ^18.0.28
       CETEIcean: 1.8.0-beta.1
       astro: ^2.0.16
-      astro-tei: workspace:1.0.0-beta.1
+      astro-tei: workspace:^0.1.0
       jsdom: ^21.1.0
       react: ^18.2.0
       react-teirouter: ^3.0.0
