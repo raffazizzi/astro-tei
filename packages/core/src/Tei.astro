@@ -1,0 +1,32 @@
+---
+import processTei from "./processTei";
+
+export interface Props {
+  data: string;
+  useBehaviors: boolean;
+}
+
+let { data, useBehaviors = true } = Astro.props as Props;
+
+const jdom = processTei(data);
+
+const teiString = jdom.serialize();
+
+// Expand self-closing elements
+const tei = teiString.replace(/<([^\s\/]+)([^>]*?)\/>/gm, "<$1$2></$1>");
+
+---
+
+<script>
+  const root = document.querySelector("#__astrotei");
+  const teiDom = root.firstChild;
+  if (root.dataset.usebehaviors === "true") {
+    const CETEI = (await import("CETEIcean")).default;
+    const ceteicean = new CETEI();
+    ceteicean.els = teiDom.dataset.elements.split(",");
+    ceteicean.utilities.dom = teiDom;
+    ceteicean.applyBehaviors();
+  }
+</script>
+
+<div id="__astrotei" set:html={tei} data-usebehaviors={useBehaviors.toString()} />

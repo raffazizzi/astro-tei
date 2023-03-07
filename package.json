@@ -1,0 +1,40 @@
+{
+  "name": "astro-tei-root",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Astro components for TEI as Custom Elements",
+  "author": {
+    "name": "Raff Viglianti",
+    "email": "raffazizzi@gmail.com",
+    "url": "http://raffviglianti.com/"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "demo"
+  ],
+  "engines": {
+    "node": ">=16.12.0",
+    "pnpm": ">=7.9.5"
+  },
+  "packageManager": "pnpm@7.28.0",
+  "scripts": {
+    "dev": "pnpm --filter ./demo dev"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "astro": "^2.0.16",
+    "esbuild": "^0.17.10",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-astro": "^0.8.0",
+    "typescript": "^4.9.5"
+  }
+}

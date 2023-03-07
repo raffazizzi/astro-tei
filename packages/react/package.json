@@ -1,0 +1,44 @@
+{
+  "name": "@astro-tei/react",
+  "version": "1.0.0-beta.1",
+  "description": "Astro component for TEI as Custom Elements with React support",
+  "type": "module",
+  "main": "index.js",
+  "keywords": [
+    "astro-component",
+    "TEI",
+    "XML",
+    "React"
+  ],
+  "author": {
+    "name": "Raff Viglianti",
+    "email": "raffazizzi@gmail.com",
+    "url": "http://raffviglianti.com/"
+  },
+  "license": "MIT",
+  "exports": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=16.12.0",
+    "pnpm": ">=7.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raffazizzi/astro-tei.git",
+    "directory": "packages/core"
+  },
+  "packageManager": "pnpm@7.28.0",
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "astro": "^2.0.16"
+  },
+  "dependencies": {
+    "CETEIcean": "1.8.0-beta.1",
+    "astro-tei": "workspace:1.0.0-beta.1",
+    "jsdom": "^21.1.0",
+    "react": "^18.2.0",
+    "react-teirouter": "^3.0.0"
+  }
+}

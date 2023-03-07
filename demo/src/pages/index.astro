@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Tei, {TeiBaseStyle} from 'astro-tei';
+import "./style.css";
+
+// Load TEI data with a dynamic import.
+// One could also use Node's library fs to get the file's content.
+const teiFile = (await import("../tei/testTEI.xml?raw")).default;
+
+---
+
+<Layout title="Astro TEI demo">
+	<TeiBaseStyle/>
+	<main>
+		<h1>Astro TEI demo</h1>
+		<div>Below is a TEI file rendered and embedded as its own Astro component island.</div>
+		<div>See <a href="react">an example using React</a> and React components instead of CETEIcean behaviors.</div>
+		<div class="tei">
+			<Tei data={teiFile} />
+		</div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 65ch;
+	}
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+		margin-bottom: 1em;
+	}
+	.tei {
+		box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+    background-color: #fff;
+    color: #424242;
+    padding: 1em;
+    margin-top: 1em;
+    border-radius: 8px;
+	}
+</style>

@@ -1,0 +1,8 @@
+.ceteicean-notes, .notes {
+  list-style: decimal !important;
+  margin: 1em !important;
+}
+
+a {
+  text-decoration: underline;
+}
