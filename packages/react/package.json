@@ -16,6 +16,10 @@
     "url": "http://raffviglianti.com/"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "exports": "./src/index.ts",
   "files": [
     "src"
