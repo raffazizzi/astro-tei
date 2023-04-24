@@ -3,7 +3,7 @@ import processTei from "./processTei";
 
 export interface Props {
   data: string;
-  useBehaviors: boolean;
+  useBehaviors?: boolean;
 }
 
 let { data, useBehaviors = true } = Astro.props as Props;
