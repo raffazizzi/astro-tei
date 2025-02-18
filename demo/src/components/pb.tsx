@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 import { Behavior } from "@astro-tei/react";
 
 interface TEIProps {
@@ -15,7 +15,7 @@ const Pb: PbBehavior = ({teiNode}: TEIProps) => {
   const facRef = pb.getAttribute('facs') || ''
 
   const [expanded, setExpanded] = React.useState(false)
-  const handleChange = (event: React.SyntheticEvent) => {
+  const handleChange = () => {
     setExpanded(!expanded)
   }
 
@@ -43,7 +43,7 @@ const Pb: PbBehavior = ({teiNode}: TEIProps) => {
                 data-te-target="#collapseOne"
                 aria-expanded={expanded}
                 aria-controls="collapseOne"
-                onClick={(e) => handleChange(e)}
+                onClick={() => handleChange()}
                 >
                 <span className="font-bold">Page {n}</span>
                 <span

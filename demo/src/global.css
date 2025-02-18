@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 .ceteicean-notes, .notes {
   list-style: decimal !important;
   margin: 1em !important;

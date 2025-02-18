@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import { TeiBaseStyle, processTei } from 'astro-tei';
 import Tei from '../components/tei'
-import "./style.css";
 
 // Load TEI data with a dynamic import.
 // One could also use Node's library fs to get the file's content.
@@ -11,41 +10,19 @@ const teiFile = (await import("../tei/testTEI.xml?raw")).default;
 const jdom = processTei(teiFile);
 const teiDom = jdom.window.document;
 const tei = jdom.serialize();
-const elements = teiDom.documentElement.getAttribute("data-elements").split(",");
+const elements = teiDom.documentElement.getAttribute("data-elements")?.split(",");
 
 ---
 
 <Layout title="Astro TEI demo">
 	<TeiBaseStyle/>
-	<main>
-		<h1>Astro TEI - React demo</h1>
+	<main class="m-auto p-6 max-w-[65ch]">
+		<h1 class="text-5xl font-extrabold m-0 mb-4">Astro TEI - React demo</h1>
 		<div>Below is a TEI file rendered and embedded as its own Astro component island. 
 			The rendering of the TEI is then passed through a React router to map React components to TEI elements.</div>
 		<div>See <a href="..">static Astro component</a> example.</div>
-		<div class="tei">
-			<Tei doc={teiDom} data={tei} elements={elements} client:load />
+		<div class="shadow-2xl bg-amber-50 text-gray-700 p-4 mt-4 rounded-md">
+			<Tei doc={teiDom} data={tei} elements={elements || []} client:load />
 		</div>
 	</main>
 </Layout>
-
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 65ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-		margin-bottom: 1em;
-	}
-	.tei {
-		box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
-    background-color: #fff;
-    color: #424242;
-    padding: 1em;
-    margin-top: 1em;
-    border-radius: 8px;
-	}
-</style>

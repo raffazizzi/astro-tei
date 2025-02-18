@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX, type ReactElement } from "react";
 import { TEINode, TEINodes } from "react-teirouter";
 import { serialize } from "CETEIcean/utilities.js";
 
@@ -18,7 +18,7 @@ type ImgProps = {
 export type TBehavior = (props: TEIProps) => JSX.Element | null;
 
 export const forwardAttributes = (atts: NamedNodeMap) => {
-  return Array.from(atts).reduce<any>((acc, att) => {
+  return Array.from(atts).reduce<Record<string, string>>((acc, att) => {
     acc[att.name === "ref" ? "Ref" : att.name] = att.value;
     return acc;
   }, {});
@@ -43,7 +43,7 @@ export const SafeUnchangedNode = (props: TEIProps) => {
 
 export const Eg: TBehavior = (props: TEIProps) => {
   let content = serialize(props.teiNode, true);
-  let ws = content.match(/^[\t ]+/);
+  const ws = content.match(/^[\t ]+/);
   if (ws) {
     content = content.replace(new RegExp("^" + ws[0], "mg"), "");
   }
@@ -168,7 +168,7 @@ export const Tei: TBehavior = (props: TEIProps) => {
   // end notes
   const endNotes: React.ReactElement[] = Array.from(
     el.getElementsByTagName("tei-note")
-  ).reduce<any>((acc, note: Element, i) => {
+  ).reduce<ReactElement[]>((acc, note: Element, i) => {
     if (note.getAttribute("place") === "end") {
       // Add an index to the note
       note.setAttribute("data-idx", (i + 1).toString());

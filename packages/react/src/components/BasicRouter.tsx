@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, type JSX } from "react";
 import { TEIRender, TEIRoute } from "react-teirouter";
 
 import { defineCustomElement } from "CETEIcean/utilities.js";
 
 import {
-  TBehavior,
+  type TBehavior,
   Tei,
   Eg,
   Graphic,

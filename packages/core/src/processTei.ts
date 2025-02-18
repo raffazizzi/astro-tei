@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom";
 import CETEI from "CETEIcean";
 
-const processTei = (data): JSDOM => {
+const processTei = (data: string): JSDOM => {
   const jdom = new JSDOM(data, { contentType: "text/xml" });
   const teiDoc = jdom.window.document;
 
@@ -10,7 +10,7 @@ const processTei = (data): JSDOM => {
   });
 
   const teiData = ceteicean.preprocess(teiDoc);
-  teiData.setAttribute("data-elements", Array.from(ceteicean.els).join(","));
+  teiData.firstElementChild.setAttribute("data-elements", Array.from(ceteicean.els).join(","));
 
   // Replace input JSDOM tree with new tree so that we can use the JSDOM native serialize method.
   teiDoc.documentElement.replaceWith(teiData);

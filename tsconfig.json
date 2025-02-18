@@ -1,14 +1,8 @@
 {
-  "extends": "astro/tsconfigs/base",
+  "extends": "astro/tsconfigs/strict",
+  "include": ["demo/src/*", "demo/src/**/*", "packages/**/src/*"],
   "compilerOptions": {
-    "skipLibCheck": true,
-    // Enable top-level await, and other modern ESM features.
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "nodenext",
-    "esModuleInterop": true,
-    "lib": ["ES2021"],
-    "types": ["astro/client"]
-  },
-  "include": ["demo/src/*", "demo/src/**/*", "packages/**/src/*"]
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
 }
