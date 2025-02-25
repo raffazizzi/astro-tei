@@ -2,7 +2,7 @@ import React, { type JSX, type ReactElement } from "react";
 import { TEINode, TEINodes } from "react-teirouter";
 import { serialize } from "CETEIcean/utilities.js";
 
-import { Behavior } from "./Behavior";
+import Behavior from "./Behavior";
 
 type TEIProps = {
   teiNode: Node;

@@ -34,16 +34,13 @@
     "directory": "packages/core"
   },
   "packageManager": "pnpm@10.4.1",
-  "scripts": {
-    "dev": "pnpm --filter ./demo dev"
-  },
   "devDependencies": {
-    "@types/react": "^19.0.10",
-    "astro": "^5.3.0"
+    "@types/react": "^19.0.10"
   },
   "dependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.13.5",
     "CETEIcean": "1.9.3",
-    "astro-tei": "workspace:^0.2.0",
     "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-teirouter": "^3.0.0"

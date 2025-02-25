@@ -1,23 +1,24 @@
 {
-	"name": "astro-tei-demo",
-	"private": true,
-	"version": "0.2.0",
+  "name": "astro-tei-demo",
+  "private": true,
+  "version": "0.2.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro"
   },
   "dependencies": {
+    "@astro-tei/react": "workspace:^0.2.0",
     "@astrojs/react": "^4.2.0",
     "@tailwindcss/vite": "^4.0.6",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.3.0",
+    "astro-tei": "link:../packages/core",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.6",
-    "@astro-tei/react": "workspace:^0.2.0",
-		"astro-tei": "workspace:^0.2.0"
+    "tailwindcss": "^4.0.9"
   }
 }

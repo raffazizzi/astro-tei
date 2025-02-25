@@ -1,17 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { TeiBaseStyle, processTei } from 'astro-tei';
-import Tei from '../components/tei'
+import TeiReact from '../components/tei'
 
 // Load TEI data with a dynamic import.
 // One could also use Node's library fs to get the file's content.
 const teiFile = (await import("../tei/testTEI.xml?raw")).default;
-
-const jdom = processTei(teiFile);
-const teiDom = jdom.window.document;
-const tei = jdom.serialize();
-const elements = teiDom.documentElement.getAttribute("data-elements")?.split(",");
-
+// Use astro-tei to process TEI data with CETEIcean.
+const tei = processTei(teiFile);
 ---
 
 <Layout title="Astro TEI demo">
@@ -22,7 +18,7 @@ const elements = teiDom.documentElement.getAttribute("data-elements")?.split(","
 			The rendering of the TEI is then passed through a React router to map React components to TEI elements.</div>
 		<div>See <a href="..">static Astro component</a> example.</div>
 		<div class="shadow-2xl bg-amber-50 text-gray-700 p-4 mt-4 rounded-md">
-			<Tei doc={teiDom} data={tei} elements={elements || []} client:load />
+			<TeiReact elements={tei.elements} client:load tei={tei.serialized}/>
 		</div>
 	</main>
 </Layout>

@@ -1,4 +1,4 @@
-import { Behavior } from "./components/Behavior";
+import Behavior from "./components/Behavior";
 import * as DefaultBehaviors from "./components/DefaultBehaviors";
 import type { TBehavior } from "./components/DefaultBehaviors";
 import BasicRouter from "./components/BasicRouter";

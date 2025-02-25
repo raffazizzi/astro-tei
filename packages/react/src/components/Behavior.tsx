@@ -1,43 +1,25 @@
-import React, { type JSX } from "react";
-import { serialize } from "CETEIcean/utilities.js";
+import React from "react";
+import type { JSX, PropsWithChildren } from "react";
+import { hideContent } from "CETEIcean/utilities.js";
 
-interface Props {
+interface BehaviorProps {
   node: Node;
-  children?: JSX.Element | JSX.Element[];
+  keepOriginal?: boolean;
+  rewriteIds?: boolean;
 }
 
-/* This is a React component that takes a node and some children as props. It returns a span element
-with the original content of the node hidden from view.
-Use this component when the original TEI needs to be replaced by HTML structures. */
-export const Behavior = ({ children, node }: Props) => {
-  // const serializer = new XMLSerializer();
+export default function Behavior({children, node, keepOriginal = true, rewriteIds = true}
+  : PropsWithChildren<BehaviorProps>) {
 
-  if (node.nodeType === 1) {
-    const el = node as Element;
-    return React.createElement(
-      el.tagName,
-      {},
-      <>
-        <span
-          hidden
-          aria-hidden
-          data-original
-          dangerouslySetInnerHTML={{ __html: serialize(el) }}
-        />
-        {children}
-      </>
+  let hiddenOriginal: JSX.Element | null = null;
+
+  if (keepOriginal) {
+    
+    hiddenOriginal = React.createElement("cetei-original",
+      {hidden: "", "data-original": ""},
+      hideContent(node, rewriteIds)
     );
   }
-
-  return (
-    <>
-      <span
-        hidden
-        aria-hidden
-        data-original
-        dangerouslySetInnerHTML={{ __html: node.textContent || "" }}
-      />
-      {children}
-    </>
-  )
-};
+  
+  return <>{hiddenOriginal}{children}</>
+}

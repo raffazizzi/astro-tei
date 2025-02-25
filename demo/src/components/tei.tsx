@@ -4,13 +4,12 @@ import { DefaultBehaviors } from "@astro-tei/react";
 import type { IRoutes } from "@astro-tei/react";
 import Pb from './pb';
 
-interface Props {
-  doc: Document
-  data: string
+interface TeiReactProps {
+  tei: string
   elements: string[]
 }
 
-export default function TEI({doc, data, elements}: Props) {
+export default function TeiReact({tei, elements}: TeiReactProps) {
   const {
     Tei,
     Eg,
@@ -34,8 +33,5 @@ export default function TEI({doc, data, elements}: Props) {
     "tei-pb": Pb,
   };
 
-  // Support server side and client side DOM processing.
-  const usableDoc = typeof DOMParser !== 'undefined' ? (new DOMParser()).parseFromString(data, "text/xml") : doc;
-
-  return <BasicRouter doc={usableDoc} elements={elements} routes={routes} />
+  return <BasicRouter elements={elements} tei={tei} routes={routes}/>;
 }

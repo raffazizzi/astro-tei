@@ -1,7 +1,15 @@
-import { JSDOM } from "jsdom";
 import CETEI from "CETEIcean";
+const { createRequire } = await import("module");
+const require = createRequire(import.meta.url);
+const {JSDOM} = require("jsdom")
 
-const processTei = (data: string): JSDOM => {
+export interface ProcessedTei {
+  dom: Document;
+  serialized: string;
+  elements: string[];
+}
+
+const processTei = (data: string): ProcessedTei => {
   const jdom = new JSDOM(data, { contentType: "text/xml" });
   const teiDoc = jdom.window.document;
 
@@ -15,7 +23,11 @@ const processTei = (data: string): JSDOM => {
   // Replace input JSDOM tree with new tree so that we can use the JSDOM native serialize method.
   teiDoc.documentElement.replaceWith(teiData);
 
-  return jdom;
+  return {
+    dom: teiDoc,
+    serialized: jdom.serialize(),
+    elements: Array.from(ceteicean.els) as string[]
+  };
 };
 
 export { processTei as default, processTei };
