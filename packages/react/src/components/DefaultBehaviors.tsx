@@ -2,7 +2,7 @@ import React, { type JSX, type ReactElement } from "react";
 import { TEINode, TEINodes } from "react-teirouter";
 import { serialize } from "CETEIcean/utilities.js";
 
-import Behavior from "./Behavior";
+import Behavior, {forwardAttributes} from "./Behavior";
 
 type TEIProps = {
   teiNode: Node;
@@ -16,13 +16,6 @@ type ImgProps = {
 };
 
 export type TBehavior = (props: TEIProps) => JSX.Element | null;
-
-export const forwardAttributes = (atts: NamedNodeMap) => {
-  return Array.from(atts).reduce<Record<string, string>>((acc, att) => {
-    acc[att.name === "ref" ? "Ref" : att.name] = att.value;
-    return acc;
-  }, {});
-};
 
 export const SafeUnchangedNode = (props: TEIProps) => {
   // Re-build an element that does not need changing
@@ -206,10 +199,5 @@ export const Tei: TBehavior = (props: TEIProps) => {
 };
 
 export const TeiHeader: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
-  return React.createElement(
-    el.localName.toLowerCase(),
-    { ...forwardAttributes(el.attributes) },
-    <Behavior node={props.teiNode} />
-  );
+  return <Behavior node={props.teiNode} />
 };
