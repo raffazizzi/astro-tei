@@ -36,11 +36,13 @@ export default function Behavior({children, node, keepOriginal = true, rewriteId
   let hiddenOriginal: JSX.Element | null = null;
 
   if (keepOriginal) {
+    const hiddenContent = hideContent(el, rewriteIds).outerHTML
+      .replace(/<([^\s/]+)([^>]*?)\/>/gm, "<$1$2></$1>"); // expand self closing elements
     hiddenOriginal = React.createElement("cetei-original",
       {
         hidden: "",
         "data-original": "",
-        dangerouslySetInnerHTML: {__html: hideContent(el, rewriteIds).outerHTML}
+        dangerouslySetInnerHTML: {__html: hiddenContent}
       }
     );
   }
