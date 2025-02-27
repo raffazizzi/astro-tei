@@ -32,7 +32,7 @@
   "dependencies": {
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.13.5",
-    "CETEIcean": "link:/home/rviglian/Projects/CETEIcean/",
+    "CETEIcean": "1.9.4",
     "jsdom": "^26.0.0"
   }
 }

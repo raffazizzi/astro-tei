@@ -78,8 +78,8 @@ importers:
         specifier: ^22.13.5
         version: 22.13.5
       CETEIcean:
-        specifier: link:/home/rviglian/Projects/CETEIcean/
-        version: link:../../../CETEIcean
+        specifier: 1.9.4
+        version: 1.9.4
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -93,8 +93,8 @@ importers:
         specifier: ^22.13.5
         version: 22.13.5
       CETEIcean:
-        specifier: 1.9.3
-        version: 1.9.3
+        specifier: 1.9.4
+        version: 1.9.4
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -915,8 +915,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0
 
-  CETEIcean@1.9.3:
-    resolution: {integrity: sha512-K+rigMrFpAwivhURHsulFfD98S3b3O5hSsbMWVtbYITOC1VBzt1TXonCnMV2wjPzPZfcNQEsGHpTy8Ubx4ITEA==}
+  CETEIcean@1.9.4:
+    resolution: {integrity: sha512-FuTSIN/lgLUIneGQOmT8F2UgZbh4MNMagviXmV1z2QX74UWX15XgJ4KDHhMS5srsHg74Jj879LwWE5R/bGgZ+A==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3731,7 +3731,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  CETEIcean@1.9.3: {}
+  CETEIcean@1.9.4: {}
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
