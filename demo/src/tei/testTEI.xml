@@ -32,6 +32,12 @@
     And here is a <ref target="https://github.com/TEIC">ref</ref>. But
     <ref target="addBehaviorTest.html">here</ref> is a relative link.</p>
     <p><egXML xmlns="http://www.tei-c.org/ns/Examples"><fuzzbuckets>egXML test</fuzzbuckets></egXML></p>
+    <list type="gloss">
+      <label>label1</label>
+      <item>item1</item>
+      <label>label2</label>
+      <item>item2</item>
+    </list>
     <pb facs="facs-fig2.jpg" n="1"/>
     <table rows="4" cols="4">
       <head>Poor Man's Lodgings in Norfolk (Mayhew, 1843)</head>

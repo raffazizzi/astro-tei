@@ -1,16 +1,13 @@
-import React, { type JSX } from "react";
+import React from "react";
 import { Behavior } from "@astro-tei/react";
+import type { TEIComponentProps } from "@astro-tei/react";
 
-interface TEIProps {
-  teiNode: Node,
-  availableRoutes?: string[]
-}
 
-export type PbBehavior = (props: TEIProps) => JSX.Element | null;
+// const P = (props: TEIComponentProps) => <div style={{color: "red"}}>{props.content}</div>
 
-const Pb: PbBehavior = ({teiNode}: TEIProps) => {
+export default function Pb({element}: TEIComponentProps) {
 
-  const pb = teiNode as Element
+  const pb = element
   const n = pb.getAttribute('n') || ''
   const facRef = pb.getAttribute('facs') || ''
 
@@ -21,7 +18,7 @@ const Pb: PbBehavior = ({teiNode}: TEIProps) => {
 
   if (n) {
     return (
-      <Behavior node={teiNode}>
+      <Behavior node={element}>
         <div id="accordionExample" className="grid">
           {expanded ? null : 
             <img src={facRef} alt={`Image of page ${n}`} className="w-full my-4 mx-0 z-0 h-[54px] opacity-[0.4] overflow-clip object-cover" style={{gridArea: "1/1"}}/>
@@ -79,5 +76,3 @@ const Pb: PbBehavior = ({teiNode}: TEIProps) => {
   }
   return null
 }
-
-export default Pb

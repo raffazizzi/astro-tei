@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import type { JSX } from "react";
 import { defineCustomElement } from "CETEIcean/utilities.js";
-import { TEIRender, TEIRoute } from "react-teirouter";
+import {TEINode, ComponentMapProvider } from "./TEINode";
+import type { TEIComponentMap } from "./TEINode";
 
 import {
-  type TBehavior,
   Tei,
   Eg,
   Graphic,
@@ -18,11 +17,7 @@ import {
 type BasicRouterProps = {
   tei: string
   elements: string[]
-  routes?: Routes
-};
-
-export interface Routes {
-  [key: string]: TBehavior | JSX.Element;
+  routes?: TEIComponentMap
 };
 
 // Support server side and client side DOM processing.
@@ -44,7 +39,6 @@ if (import.meta.env.SSR) {
 }
 
 export default function BasicRouter({tei, elements, routes}: BasicRouterProps) {
-
   const teiDom = localParser(tei)
 
   useEffect(() => {
@@ -53,7 +47,7 @@ export default function BasicRouter({tei, elements, routes}: BasicRouterProps) {
     }
   });
 
-  const defaultRoutes: Routes = {
+  const defaultRoutes: TEIComponentMap = {
     "tei-tei": Tei,
     "teieg-egxml": Eg,
     "tei-graphic": Graphic,
@@ -61,14 +55,10 @@ export default function BasicRouter({tei, elements, routes}: BasicRouterProps) {
     "tei-note": Note,
     "tei-ptr": Ptr,
     "tei-ref": Ref,
-    "tei-teiheader": TeiHeader,
+    "tei-teiheader": TeiHeader
   };
 
-  const _routes = routes ? routes : defaultRoutes;
-
-  const teiRoutes = Object.keys(_routes).map((el, i) => {
-    return <TEIRoute el={el} component={_routes[el]} key={`tr-${i}`} />;
-  });
-
-  return <TEIRender data={teiDom.documentElement}>{teiRoutes}</TEIRender>;
+  return <ComponentMapProvider componentMap={routes ? routes : defaultRoutes}>
+    <TEINode node={teiDom.documentElement} />
+  </ComponentMapProvider>
 }

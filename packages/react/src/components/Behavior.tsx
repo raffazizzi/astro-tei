@@ -3,6 +3,7 @@ import type { JSX, PropsWithChildren } from "react";
 
 interface BehaviorProps {
   node: Node;
+  className?: string;
   keepOriginal?: boolean;
   rewriteIds?: boolean;
 }
@@ -26,7 +27,7 @@ export const forwardAttributes = (atts: NamedNodeMap) => {
   }, {});
 };
 
-export default function Behavior({children, node, keepOriginal = true, rewriteIds = true}
+export default function Behavior({children, node, className, keepOriginal = true, rewriteIds = true}
   : PropsWithChildren<BehaviorProps>) {
 
   const el = node as HTMLElement;
@@ -40,12 +41,21 @@ export default function Behavior({children, node, keepOriginal = true, rewriteId
       .replace(/<([^\s/]+)([^>]*?)\/>/gm, "<$1$2></$1>"); // expand self closing elements
     hiddenOriginal = React.createElement("cetei-original",
       {
-        hidden: "",
+        "hidden": "",
         "data-original": "",
         dangerouslySetInnerHTML: {__html: hiddenContent}
       }
     );
   }
+
+  const classAtt: Record<string, string> = {}
+  if (className) {
+    classAtt.className = className;
+  }
+  const attributes: Record<string, string> = Object.assign(classAtt, forwardAttributes(el.attributes))
   
-  return React.createElement(el.tagName, forwardAttributes(el.attributes), hiddenOriginal, children);
+  return React.createElement(el.tagName, 
+    attributes,
+    hiddenOriginal,
+    children);
 }

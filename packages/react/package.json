@@ -1,6 +1,6 @@
 {
   "name": "@astro-tei/react",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Astro integration for TEI as Custom Elements with React support",
   "type": "module",
   "main": "index.js",
@@ -42,7 +42,6 @@
     "@types/node": "^22.13.5",
     "CETEIcean": "1.9.4",
     "jsdom": "^26.0.0",
-    "react": "^19.0.0",
-    "react-teirouter": "^3.0.0"
+    "react": "^19.0.0"
   }
 }

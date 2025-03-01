@@ -1,13 +1,9 @@
-import React, { type JSX, type ReactElement } from "react";
-import { TEINode, TEINodes } from "react-teirouter";
+import React, { type PropsWithChildren, type ReactElement } from "react";
 import { serialize } from "CETEIcean/utilities.js";
+import { TEINode, TEINodes } from "./TEINode"
+import type { TEIComponentProps } from "./TEINode"
 
 import Behavior, {forwardAttributes} from "./Behavior";
-
-type TEIProps = {
-  teiNode: Node;
-  availableRoutes?: string[];
-};
 
 type ImgProps = {
   src: string;
@@ -15,40 +11,30 @@ type ImgProps = {
   height?: string | number;
 };
 
-export type TBehavior = (props: TEIProps) => JSX.Element | null;
-
-export const SafeUnchangedNode = (props: TEIProps) => {
+export const SafeUnchangedNode = ({element, content}: TEIComponentProps) => {
   // Re-build an element that does not need changing
-  // to avoid routes from being infinitely re-applied
-  if (props.teiNode.nodeType === 1) {
-    const el = props.teiNode as Element;
-    return React.createElement(
-      el.localName,
-      { ...forwardAttributes(el.attributes) },
-      <TEINodes
-        teiNodes={el.childNodes}
-        availableRoutes={props.availableRoutes}
-      />
-    );
-  }
-  return <TEINode {...props} />
+  // to avoid routes from being infinitely re-applied.
+  return React.createElement(
+    element.tagName.toLowerCase(),
+    forwardAttributes(element.attributes),
+    content)
 };
 
-export const Eg: TBehavior = (props: TEIProps) => {
-  let content = serialize(props.teiNode, true);
+export const Eg = ({element}: TEIComponentProps) => {
+  let content = serialize(element, true);
   const ws = content.match(/^[\t ]+/);
   if (ws) {
     content = content.replace(new RegExp("^" + ws[0], "mg"), "");
   }
   return (
-    <Behavior node={props.teiNode}>
+    <Behavior node={element}>
       <pre>{content}</pre>
     </Behavior>
   )
 };
 
-export const Graphic: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
+export const Graphic = ({element}: TEIComponentProps) => {
+  const el = element as Element;
   const src = el.getAttribute("url");
   if (!src) {return null};
 
@@ -63,31 +49,28 @@ export const Graphic: TBehavior = (props: TEIProps) => {
   }
 
   return (
-    <Behavior node={props.teiNode}>
+    <Behavior node={element}>
       <img {...imgProps} />
     </Behavior>
   );
 };
 
-export const List: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
-
-  if (el.getAttribute("type") !== "gloss") {
-    return <SafeUnchangedNode {...props} />;
+export const List = ({element, content}: TEIComponentProps) => {
+  if (element.getAttribute("type") !== "gloss") {
+    return <SafeUnchangedNode element={element} content={content} />;
   }
 
-  const children = Array.from(el.childNodes);
+  const children = Array.from(element.childNodes);
 
   return (
-    <Behavior node={props.teiNode}>
+    <Behavior node={element}>
       <dl>
         {children.map((child, i) => {
           if (child.nodeType !== 1) {
             return (
               <TEINode
                 key={`t-${i}`}
-                teiNode={child}
-                availableRoutes={props.availableRoutes}
+                node={child}
               />
             );
           }
@@ -96,13 +79,13 @@ export const List: TBehavior = (props: TEIProps) => {
             case "tei-label":
               return (
                 <dt key={`tt-${i}`}>
-                  <TEINodes teiNodes={childEl.childNodes} {...props} />
+                  <TEINodes nodes={childEl.childNodes} />
                 </dt>
               );
             case "tei-item":
               return (
                 <dd key={`td-${i}`}>
-                  <TEINodes teiNodes={childEl.childNodes} {...props} />
+                  <TEINodes nodes={childEl.childNodes} />
                 </dd>
               );
           }
@@ -112,55 +95,67 @@ export const List: TBehavior = (props: TEIProps) => {
   );
 };
 
-export const Note: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
+export const Ptr = ({element}: TEIComponentProps) => {
+  const target = element.getAttribute("target") || "";
+  return (
+    <Behavior node={element}>
+      <a href={target}>{target}</a>
+    </Behavior>
+  );
+};
 
-  if (el.getAttribute("place") !== "end") {
-    return <SafeUnchangedNode {...props} />;
+export const Ref = ({element, content}: TEIComponentProps) => {
+  const target = element.getAttribute("target") || "";
+  return (
+    <Behavior node={element}>
+      <a href={target}>{content}</a>
+    </Behavior>
+  );
+};
+
+// Note Context
+type NoteCounterContextType = {
+  n: number
+  setNoteCounter: React.Dispatch<React.SetStateAction<number>>
+}
+
+const NoteCounterContext = React.createContext<NoteCounterContextType>({
+  n: 0,
+  setNoteCounter: () => console.warn('no note counter data provider')
+})
+
+const NoteCounterProvider = ({ children }: PropsWithChildren) => {
+  const [n, setNoteCounter] = React.useState<number>(0)
+
+  return <NoteCounterContext value={{ n, setNoteCounter }}>{children}</NoteCounterContext>;
+};
+
+export const Note = ({element, content}: TEIComponentProps) => {
+  // THIS BEHAVIORS DEPENDS ON THE Tei BEHAVIOR
+  if (element.getAttribute("place") !== "end") {
+    return <SafeUnchangedNode element={element} content={content} />;
   }
 
-  const id = `_note_${el.getAttribute("data-idx")}`;
+  const id = `_note_${element.getAttribute("data-idx")}`;
 
   return (
-    <Behavior node={props.teiNode}>
+    <Behavior node={element}>
       <sup>
         <a id={`src${id}`} href={`#${id}`}>
-          {el.getAttribute("data-idx")}
+          {element.getAttribute("data-idx")}
         </a>
       </sup>
     </Behavior>
   );
 };
 
-export const Ptr: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
-  const target = el.getAttribute("target") || "";
-  return (
-    <Behavior node={props.teiNode}>
-      <a href={target}>{target}</a>
-    </Behavior>
-  );
-};
-
-export const Ref: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
-  const target = el.getAttribute("target") || "";
-  return (
-    <Behavior node={props.teiNode}>
-      <a href={target}>{<TEINodes teiNodes={el.childNodes} {...props} />}</a>
-    </Behavior>
-  );
-};
-
-export const Tei: TBehavior = (props: TEIProps) => {
-  const el = props.teiNode as Element;
-
+export const Tei = ({element, content}: TEIComponentProps) => {
   const before: React.ReactElement[] = [];
   const after: React.ReactElement[] = [];
 
   // end notes
   const endNotes: React.ReactElement[] = Array.from(
-    el.getElementsByTagName("tei-note")
+    element.getElementsByTagName("tei-note")
   ).reduce<ReactElement[]>((acc, note: Element, i) => {
     if (note.getAttribute("place") === "end") {
       // Add an index to the note
@@ -168,7 +163,7 @@ export const Tei: TBehavior = (props: TEIProps) => {
       const id = `_note_${i + 1}`
       acc.push(
         <li id={id} key={id}>
-          {<TEINodes key={`en${i}`} teiNodes={note.childNodes} {...props} />}
+          {<TEINodes key={`en${i}`} nodes={note.childNodes} />}
         </li>
       );
     }
@@ -183,21 +178,15 @@ export const Tei: TBehavior = (props: TEIProps) => {
     );
   }
 
-  const content = React.createElement(
-    "tei-tei",
-    { ...forwardAttributes(el.attributes) },
-    <TEINodes teiNodes={props.teiNode.childNodes} {...props} />
-  );
-
   return (
-    <>
+    <NoteCounterProvider>
       {before}
-      {content}
+      <SafeUnchangedNode element={element} content={content}/>
       {after}
-    </>
+    </NoteCounterProvider>
   );
 };
 
-export const TeiHeader: TBehavior = (props: TEIProps) => {
-  return <Behavior node={props.teiNode} />
+export const TeiHeader = ({element}: TEIComponentProps) => {
+  return <Behavior node={element} />
 };
