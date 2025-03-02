@@ -1,9 +1,10 @@
 {
   "name": "@astro-tei/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Astro integration for TEI as Custom Elements with React support",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "astro-component",
     "TEI",
@@ -20,9 +21,9 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "exports": "./src/index.ts",
+  "exports": "./dist/index.js",
   "files": [
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=22.14.0",
@@ -35,7 +36,8 @@
   },
   "packageManager": "pnpm@10.4.1",
   "devDependencies": {
-    "@types/react": "^19.0.10"
+    "@types/react": "^19.0.10",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "@types/jsdom": "^21.1.7",
@@ -43,5 +45,8 @@
     "CETEIcean": "1.9.4",
     "jsdom": "^26.0.0",
     "react": "^19.0.0"
+  },
+  "scripts": {
+    "build": "tsc"
   }
 }

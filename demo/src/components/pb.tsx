@@ -2,9 +2,6 @@ import React from "react";
 import { Behavior } from "@astro-tei/react";
 import type { TEIComponentProps } from "@astro-tei/react";
 
-
-// const P = (props: TEIComponentProps) => <div style={{color: "red"}}>{props.content}</div>
-
 export default function Pb({element}: TEIComponentProps) {
 
   const pb = element
