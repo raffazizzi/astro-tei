@@ -22,14 +22,20 @@
     "dev": "pnpm --filter ./demo dev"
   },
   "devDependencies": {
-    "@eslint/js": "^9.20.0",
-    "astro": "^5.3.0",
-    "eslint": "^9.20.1",
-    "eslint-plugin-react": "^7.37.4",
-    "globals": "^15.15.0",
-    "prettier": "^3.5.1",
+    "@eslint/js": "^9.38.0",
+    "astro": "^5.15.1",
+    "eslint": "^9.38.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.1"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }

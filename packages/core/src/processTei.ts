@@ -5,6 +5,7 @@ const {JSDOM} = require("jsdom")
 
 export interface ProcessedTei {
   dom: Document;
+  ceteicean: typeof CETEI;
   serialized: string;
   elements: string[];
 }
@@ -25,6 +26,7 @@ const processTei = (data: string): ProcessedTei => {
 
   return {
     dom: teiDoc,
+    ceteicean,
     serialized: jdom.serialize(),
     elements: Array.from(ceteicean.els) as string[]
   };
